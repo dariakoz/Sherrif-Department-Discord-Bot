@@ -15,6 +15,8 @@ export function getTime()
     var myTime = new Date();
     var myTimeString: string;
 
-    myTimeString = myTime.getHours() + ":" + myTime.getMinutes();
+    myTimeString = (`0${myTime.getHours()}`).slice(-2) + ":"
+                + (`0${myTime.getMinutes()}`).slice(-2);
+
     return myTimeString;
 }
