@@ -70,7 +70,7 @@ export const Dienst: Command = {
         ]};
 
         await interaction.followUp({
-            ephemeral: true,
+            ephemeral: false,
             content: "Gesendet",
         });
 

@@ -1,5 +1,5 @@
 {
-    "compilerOptions":{
+    "compilerOptions": {
         "target": "ESNext",
         "lib": ["ESNext","DOM"],
         "module": "CommonJS",
