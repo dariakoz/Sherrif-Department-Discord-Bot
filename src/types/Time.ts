@@ -20,3 +20,12 @@ export function getTime()
 
     return myTimeString;
 }
+
+export function toDate(tStr: string, dStr?: string) {
+	var date = new Date();
+ 	date.setHours(parseInt(tStr.substring(0,tStr.indexOf(":")), 10));
+ 	date.setMinutes(parseInt(tStr.substring(tStr.indexOf(":")+1), 10));
+ 	date.setSeconds(0);
+ 	
+    return date;
+}
