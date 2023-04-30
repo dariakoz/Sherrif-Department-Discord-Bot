@@ -1,5 +1,10 @@
-import { BaseCommandInteraction, Client, CommandInteraction, MessageEmbed, TextChannel  } from "discord.js";
+import {BaseCommandInteraction, Client, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed, MessagePayload, TextChannel} from "discord.js";
 import { Command } from "../types/Command";
+import { IDisplayDienst } from "../types/Dienst";
+
+// export let myEmbed: MessageEmbed;
+// export let id: string;
+export let dienstMessage = {} as IDisplayDienst;
 
 export const Dienst: Command = {
     name: "dienstbutton",
@@ -14,69 +19,49 @@ export const Dienst: Command = {
         }
     ],
     run: async (client: Client, interaction: BaseCommandInteraction) => {
-        const value2 = interaction.options.data[0].value as string
+        const channelId = interaction.options.data[0].value as string;
 
-        var embed = {
-        "components": [
+        interaction.followUp(
             {
-            "type": 1,
-            "components": [
-                {
-                "style": 3,
-                "label": `EINTRAGEN`,
-                "custom_id": `row_0_button_0`,
-                "disabled": false,
-                "emoji": {
-                    "id": null,
-                    "name": `✅`
-                },
-                "type": 2
-                },
-                {
-                "style": 4,
-                "label": `AUSTRAGEN`,
-                "custom_id": `row_0_button_1`,
-                "disabled": false,
-                "emoji": {
-                    "id": null,
-                    "name": `❌`
-                },
-                "type": 2
-                }
-            ]
+                content: "Test",
             }
-        ],
-        "embeds": [
-            {
-                "type": "rich",
-                "title": "",
-                "description": "",
-                "color": 0xbb8900,
-                "fields": [
-                    {
-                    "name": `Dienstdokumentation`,
-                    "value": `Dokumentiere mit ✅ oder ❌ deine Dienstzeit!`
-                    }
-                ],
-                "author": {
-                    "name": `LSSD`,
-                    "icon_url": interaction.guild.iconURL()
-                },
-                "footer": {
-                    "text": "LSSD Führungsebene",
-                    "icon_url": interaction.guild.iconURL(),
-                }
-            }
-        ]};
+        );
 
-        await interaction.followUp({
-            ephemeral: false,
-            content: "Gesendet",
-        });
+        dienstMessage.embed = new MessageEmbed()
+            .setTitle('Dienstdokumentation')
+            .setDescription('Dokumentiere mit ✅ oder ❌ deine Dienstzeit!')
+            .addFields(
+                { name: "Sheriff's im Dienst", value: 'Keine Spieler im Dienst' },
+            )
+            .setFooter({
+                text: "LSSD Führungsebene",
+                iconURL: interaction.guild.iconURL(),
+            })
+            .setAuthor({
+                name: "LSSD Führungsebene",
+                iconURL: interaction.guild.iconURL(),
+            })
+            .setColor("ORANGE")
 
-        await ( client.channels.cache.get(value2) as TextChannel ).send(embed);
+        // Ein ActionRow-Objekt erstellen, das zwei Buttons enthält
+        const actionRow = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setLabel('Eintragen')
+                    .setStyle(3)
+                    .setEmoji("✅")
+                    .setCustomId("onDienst"),
+                new MessageButton()
+                    .setLabel('Austragen')
+                    .setStyle(4)
+                    .setEmoji("❌")
+                    .setCustomId("offDienst"),
+            );
+
+        dienstMessage.message = await ( client.channels.cache.get(channelId) as TextChannel ).send(
+            { 
+                embeds: [dienstMessage.embed], 
+                components: [actionRow] 
+            });
     }
 };
-
-
-

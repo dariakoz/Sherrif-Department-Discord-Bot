@@ -1,3 +1,4 @@
+import { TextChannel } from "discord.js";
 import { IDienstData } from "../types/Dienst"
 
 class DienstData
@@ -22,10 +23,20 @@ class DienstData
 
     public deleteUser(user: string)
     {
-        this.currentPlayers = this.currentPlayers.filter((i) => {
-            i.playerId !== user;
-        });
+        this.currentPlayers = this.currentPlayers.filter(i => i.playerId !== user);
     }
+
+    // private sendPlayerStatus()
+    // {
+    //     await (client.channels.cache.get(beginningChannel) as TextChannel)
+    //             .send(`Playerstatus`);
+    //     }
+    // }
+
+    // private updatePlayerStatus()
+    // {
+        
+    // }
 }
 
 export default new DienstData();
