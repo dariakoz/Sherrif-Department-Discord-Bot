@@ -60,19 +60,14 @@ const DienstInteraction = async (client: Client, interaction: ButtonInteraction)
             var playerEndTime = new Date();
             var playingTime = Math.round(-1 *((playerStartTime.getTime() - playerEndTime.getTime()) /60000));
 
-
-            //delete exit player from object
-            CurrentDienst.deleteUser(interaction.user.id);
-
-
             //embed list
             //filter string
             const playersString = dienstMessage.embed.fields[0].value;
             const filteredString = playersString
                 .split('\n')
-                .filter(line => !line.startsWith("dariakoz"))
+                .filter(line => !line.includes(nickname))
                 .join('\n');
-            
+               
             //if no player is a Sheriff
             if (filteredString)
             {
@@ -93,6 +88,9 @@ const DienstInteraction = async (client: Client, interaction: ButtonInteraction)
             .send(`<@${playerData.playerId}> hat ${playingTime} Minuten gespielt.`);
             await (client.channels.cache.get(endingChannel) as TextChannel)
             .send(`<@${interaction.user.id}> beendet den Dienst am ${myDate.getDate()} um ${myDate.getTime()} Uhr.`);
+
+            //delete exit player from object
+            CurrentDienst.deletePlayer(interaction.user.id);
         }
         else
         {
@@ -101,9 +99,6 @@ const DienstInteraction = async (client: Client, interaction: ButtonInteraction)
                 ephemeral: true,
             })
         }
-
-        
-        
     }
 }
 

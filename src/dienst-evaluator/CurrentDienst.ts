@@ -21,9 +21,11 @@ class DienstData
         return player;
     }
 
-    public deleteUser(user: string)
+    public deletePlayer(user: string)
     {
-        this.currentPlayers = this.currentPlayers.filter(i => i.playerId !== user);
+        this.currentPlayers = this.currentPlayers.filter((i) => {
+            return i.playerId !== user;
+        });
     }
 
     // private sendPlayerStatus()
