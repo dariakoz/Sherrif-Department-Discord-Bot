@@ -1,6 +1,7 @@
 import { BaseCommandInteraction, ButtonInteraction, Client, Interaction, MessageActionRow, MessageButton, TextChannel } from "discord.js";
 import { Commands } from "../Commands";
 import DienstInteraction from "../buttonInteractions/DienstButtons";
+import DienstInteractionSQL from "../buttonInteractions/sql.DienstButtons";
 
 
 export default (client: Client): void => {
@@ -34,4 +35,5 @@ const handleSlashCommand = async (client: Client, interaction: BaseCommandIntera
 
 const handleButtonInteraction = async (client: Client, interaction: ButtonInteraction) => {
     DienstInteraction(client, interaction);
+    //DienstInteractionSQL(client, interaction);
 }
