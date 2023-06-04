@@ -5,7 +5,7 @@ import { dienstMessage } from "../commands/Dienst";
 
 const DienstInteractionSQL = async (client: Client, interaction: ButtonInteraction) => 
 {
-    const playerData = await DienstDataSQL.getPlayer({playerId: interaction.user.id});
+    //const playerData = await DienstDataSQL.getPlayer({playerId: interaction.user.id});
     const playerOnDuty = await DienstDataSQL.isPlayerOnDuty({playerId: interaction.user.id});
     var nickname = interaction.guild.members.cache.get(interaction.user.id).nickname
 

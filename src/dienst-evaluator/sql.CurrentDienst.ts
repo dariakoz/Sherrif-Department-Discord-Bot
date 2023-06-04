@@ -3,9 +3,6 @@ import config from "../config/config.json"
 const sqlConfig = config.mysqlConfig;
 import mysql from 'mysql2/promise';
 
-type Row = mysql.RowDataPacket;
-type dbDefaults = Row[];
-
 class DienstDataSQL {
     private connection: mysql.Pool;
 

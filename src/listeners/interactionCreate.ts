@@ -34,6 +34,6 @@ const handleSlashCommand = async (client: Client, interaction: BaseCommandIntera
 
 
 const handleButtonInteraction = async (client: Client, interaction: ButtonInteraction) => {
-    DienstInteraction(client, interaction);
-    //DienstInteractionSQL(client, interaction);
+    //DienstInteraction(client, interaction);
+    DienstInteractionSQL(client, interaction);
 }
