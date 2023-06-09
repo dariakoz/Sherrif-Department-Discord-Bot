@@ -1,9 +1,11 @@
-import { Client } from "discord.js";
+import { ActivityType, Client } from "discord.js";
 import { Commands } from "../Commands";
+import { type } from "os";
 
 export default (client: Client): void => {
     
     client.on("ready", async () => {
+        
         if (!client.user || !client.application) {
             return;
         }
@@ -11,9 +13,9 @@ export default (client: Client): void => {
         await client.application.commands.set(Commands);
         
         client.user.setActivity({
-            name: "sich das Leistellenblatt an!",
-            type: "WATCHING",
-            url: "https://docs.google.com/spreadsheets/d/1f5aUnAbpEDQHi9NTBtW9MAVv0Vtxt2vCSiybuXRAxwc/edit#gid=1494697927",
+            name: "Test",
+            url: "https://docs.google.com/spreadsheets/d/1f5aUnAbpEDQHi9NTBtW9MAVv0Vtxt2vCSiybuXRAxwc/edit#gid=889788368",
+            type: ActivityType.Watching
         })
 
         console.log(`${client.user.tag} is online!`);

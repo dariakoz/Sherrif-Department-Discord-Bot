@@ -1,8 +1,6 @@
-import { BaseCommandInteraction, ButtonInteraction, ChatInputApplicationCommandData, Client, CommandInteraction } from "discord.js";
-import { RawMessageButtonInteractionData } from "discord.js/typings/rawDataTypes";
+import { ChatInputApplicationCommandData, Client, CommandInteraction } from "discord.js";
 
 export interface Command extends ChatInputApplicationCommandData {
-    run: (client: Client, interaction: BaseCommandInteraction) => void;
-    // buttonInteraction?: (client: Client, interaction: ButtonInteraction) => void;
+    run: (client: Client, interaction: CommandInteraction) => void;
 };
 

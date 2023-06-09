@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { EmbedBuilder, Message} from "discord.js";
 
 export interface IDienstData {
     playerId: string,
@@ -9,7 +9,7 @@ export interface IDienstData {
 }
 
 export interface IDisplayDienst {
-    embed: MessageEmbed,
+    embed: EmbedBuilder,
     channelId: string,
     message: Message
 }

@@ -1,4 +1,4 @@
-import { ButtonInteraction, Client, MessageActionRow, MessageButton, TextChannel } from "discord.js";
+import { ButtonInteraction, Client } from "discord.js";
 import DienstDataSQL from "../dienst-evaluator/sql.CurrentDienst";
 import * as myDate from "../types/Time";
 import { dienstMessage } from "../commands/Dienst";
@@ -23,15 +23,15 @@ const DienstInteractionSQL = async (client: Client, interaction: ButtonInteracti
 
             //register new player in embed list
             try {
-                if(dienstMessage.embed.fields[0].value == "Keine Spieler im Dienst")
+                if(dienstMessage.embed.data.fields[0].value == "Keine Spieler im Dienst")
                 {
-                    dienstMessage.embed.fields[0].value = `${nickname} seit ${myDate.getTime()} Uhr`;
+                    dienstMessage.embed.data.fields[0].value = `${nickname} seit ${myDate.getTime()} Uhr`;
                 }
                 else
                 {
-                    dienstMessage.embed.fields[0].value += `\n${nickname} seit ${myDate.getTime()} Uhr`;
+                    dienstMessage.embed.data.fields[0].value += `\n${nickname} seit ${myDate.getTime()} Uhr`;
                 }
-                dienstMessage.message.edit(
+                await dienstMessage.message.edit(
                 {
                         embeds: [dienstMessage.embed],
                 });
@@ -42,12 +42,11 @@ const DienstInteractionSQL = async (client: Client, interaction: ButtonInteracti
                     ephemeral: true,
                 })
             }
-            
         }
         else
         {
             await interaction.followUp({
-                content: "Du bist schon eingetragen oder der Bot ist kurzzeitig ausgefallen! Bei letzterem bitte den /offduty Command nutzen, um manuell den letzten Dienst zu beenden.",
+                content: "Du bist schon eingetragen!",
                 ephemeral: true,
             })
         }
@@ -62,7 +61,7 @@ const DienstInteractionSQL = async (client: Client, interaction: ButtonInteracti
             //embed list
             //filter string and if no player is a Sheriff
             try {
-                const playersString = dienstMessage.embed.fields[0].value;
+                const playersString = dienstMessage.embed.data.fields[0].value;
                 const filteredString = playersString
                     .split('\n')
                     .filter(line => !line.includes(nickname))
@@ -70,20 +69,20 @@ const DienstInteractionSQL = async (client: Client, interaction: ButtonInteracti
                 
                 if (filteredString)
                 {
-                    dienstMessage.embed.fields[0].value = filteredString;
+                    dienstMessage.embed.data.fields[0].value = filteredString;
                 }
                 else
                 {
-                    dienstMessage.embed.fields[0].value = "Keine Spieler im Dienst";
+                    dienstMessage.embed.data.fields[0].value = "Keine Spieler im Dienst";
                 }
-                dienstMessage.message.edit(
+                await dienstMessage.message.edit(
                 {
                     embeds: [dienstMessage.embed],
                 });
             } catch (error) {
                 console.error("Die embed-list konnte nicht geupdatet werden");
                 interaction.followUp({
-                    content: "Die Liste hat ein Hänger. Du wirst aber aus die Datenbank ausgetragen",
+                    content: "Die Liste hat ein Hänger. Du wirst aber aus der Datenbank ausgetragen",
                     ephemeral: true,
                 })
             }
